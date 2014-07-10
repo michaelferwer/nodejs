@@ -1,0 +1,22 @@
+{
+    "name": "generated-express-app",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "./node_modules/.bin/supervisor server.js"
+    },
+    "dependencies": {
+        "express": "~4.2.0",
+        "express3-handlebars ": "*",
+        "serve-favicon": "*",
+        "morgan": "~1.0.0",
+        "cookie-parser": "~1.0.1",
+        "body-parser": "~1.0.0",
+        "mongoose":"*",
+        "debug": "~0.7.4",
+        "mocha": "*",
+        "chai": "*",
+        "sinon": "*",
+        "supervisor": "*"
+    }
+}

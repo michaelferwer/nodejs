@@ -1,0 +1,40 @@
+html, body {
+    /* Make the body to be as tall as browser window */
+    height: 100%;
+    margin: 0px;
+    background: #ccc;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.content{
+    margin-top: 100px;
+    overflow-y:auto;
+    overflow-x: hidden;
+    /*height: 500px;*/
+}
+
+.menu {
+    float: right;
+}
+
+/* Boutton Google+ */
+#signinButtonGPlus  {
+    display: none;
+}
+
+.disable {
+    display: none;
+}
+
+.clear {
+    clear: both;
+}
+
+.thumbnail-twitter{
+    height: 150px;
+}
+
+
+.twitter-txt{
+    color: #222;
+}

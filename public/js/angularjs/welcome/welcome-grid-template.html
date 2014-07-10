@@ -1,0 +1,12 @@
+<scrollable onscroll="scrolled()">
+    <div class="row">
+        <div ng-repeat="list in List">
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <a href="#" class="thumbnail thumbnail-twitter">
+                    <img alt="..." ng-src="{{list.user.profileImageUrlHttps}}" ng-click="setImage(list.picture)">
+                    <label class="twitter-txt" >{{list.text}}</label>
+                </a>
+            </div>
+        </div>
+    </div>
+</scrollable>
