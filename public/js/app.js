@@ -14,6 +14,6 @@ require(["js/angularjs/AppAngular","js/angularjs/AppRouterAngular","js/angularjs
     }
 );
 
-require(['js/chromecast/chromecast']);
+
 
 require(['js/file_api/file_api']);

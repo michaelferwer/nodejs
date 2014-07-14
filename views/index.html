@@ -1,6 +1,8 @@
 {{title}} index
 <input type="file" id="file" name="file" onchange="loadingFile(this)"/>
 
+
+
 <script>
     var loadingFile = function(event){
         var size = event.files.length;
@@ -9,8 +11,9 @@
         }
         else{
             var reader = new FileReader();
-            reader.onload = function(e){
+            reader.onload = function(){
                 console.log("file is loaded");
+                var dataURL = this.result;
             };
             reader.onerror = function(error){
                 console.log("file loading on error");
@@ -18,7 +21,24 @@
             reader.onabort = function(e){
                 console.log("file loading is aborted");
             };
-            reader.readAsArrayBuffer(event.files[0]);
+            reader.readAsDataURL(event.files[0]);
         }
     };
+
+    // Load ChromeCast implementation
+    $( document ).ready(function() {
+        require(['js/chromecast/chromecast'], function(ChromeCast){
+            var cast = new ChromeCast();
+            $("#session_caster_btn").click(cast.initializeCastAPI);
+            $("#stream_caster_btn").click(cast.requestCastSession);
+            $("#stop_caster_btn").click(cast.stopCast);
+        });
+    });
+
 </script>
+
+<br>
+
+<button id="session_caster_btn">Get Cast Session</button>
+<button id="stream_caster_btn">Start Cast</button>
+<button id="stop_caster_btn">Stop Cast</button>
