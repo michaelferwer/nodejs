@@ -12,8 +12,17 @@
         else{
             var reader = new FileReader();
             reader.onload = function(){
-                console.log("file is loaded");
-                var dataURL = this.result;
+                try {
+                    console.log("file is loaded");
+                    var dataURL = this.result;
+                    var player = $("#video");
+                    player.get(0).src = "data:video/webm;base64," + window.btoa(dataURL); //window.btoa(
+                    player.get(0).load();
+                    player.get(0).play();
+                }
+                catch (e){
+                    console.log(e);
+                }
             };
             reader.onerror = function(error){
                 console.log("file loading on error");
@@ -21,7 +30,7 @@
             reader.onabort = function(e){
                 console.log("file loading is aborted");
             };
-            reader.readAsDataURL(event.files[0]);
+            reader.readAsBinaryString(event.files[0]);
         }
     };
 
@@ -35,6 +44,50 @@
         });
     });
 
+
+
+
+    $( document ).ready(function() {
+    var renderer, scene, camera, mesh;
+
+        init();
+        animate();
+
+        function init(){
+            // on initialise le moteur de rendu
+            renderer = new THREE.WebGLRenderer();
+
+            // si WebGL ne fonctionne pas sur votre navigateur vous pouvez utiliser le moteur de rendu Canvas à la place
+            // renderer = new THREE.CanvasRenderer();
+            renderer.setSize( 500 , 500 );
+            document.getElementById('container').appendChild(renderer.domElement);
+
+            // on initialise la scène
+            scene = new THREE.Scene();
+
+            // on initialise la camera que l’on place ensuite sur la scène
+            camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000 );
+            camera.position.set(0, 0, 1000);
+            scene.add(camera);
+
+            // on créé un  cube au quel on définie un matériau puis on l’ajoute à la scène
+            var geometry = new THREE.BoxGeometry( 200, 200, 200 );
+            var material = new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe: false } );
+            mesh = new THREE.Mesh( geometry, material );
+            scene.add( mesh );
+
+            // on effectue le rendu de la scène
+            renderer.render( scene, camera );
+        }
+
+        function animate(){
+            requestAnimationFrame( animate );
+            mesh.rotation.x += 0.01;
+            mesh.rotation.y += 0.02;
+            renderer.render( scene, camera );
+        }
+    });
+
 </script>
 
 <br>
@@ -42,3 +95,11 @@
 <button id="session_caster_btn">Get Cast Session</button>
 <button id="stream_caster_btn">Start Cast</button>
 <button id="stop_caster_btn">Stop Cast</button>
+
+<br><br>
+
+<video id="video" width="320" height="240" controls ></video>
+
+        <br><br>
+
+<!--<div id="container" style="height: 500px;width: 500px;"></div>-->
