@@ -13,10 +13,12 @@
             var reader = new FileReader();
             reader.onload = function(){
                 try {
+                    var progress = $("#progress").get(0);
+                    progress.textContent = '100%';
                     console.log("file is loaded");
                     var dataURL = this.result;
                     var player = $("#video");
-                    player.get(0).src = "data:video/webm;base64," + window.btoa(dataURL); //window.btoa(
+                    player.get(0).src = "data:video/webm;base64," + window.btoa(dataURL);
                     player.get(0).load();
                     player.get(0).play();
                 }
@@ -24,6 +26,7 @@
                     console.log(e);
                 }
             };
+            reader.onprogress = updateProgressBar;
             reader.onerror = function(error){
                 console.log("file loading on error");
             };
@@ -31,6 +34,17 @@
                 console.log("file loading is aborted");
             };
             reader.readAsBinaryString(event.files[0]);
+        }
+    };
+
+    var updateProgressBar = function(e){
+        if (e.lengthComputable) {
+            var percentLoaded = Math.round((e.loaded / e.total) * 100);
+            // Increase the progress bar length.
+            if (percentLoaded < 100) {
+                var progress = $("#progress").get(0);
+                progress.textContent = percentLoaded + '%';
+            }
         }
     };
 
@@ -98,8 +112,10 @@
 
 <br><br>
 
-<video id="video" width="320" height="240" controls ></video>
+<video id="video" class="video-js vjs-default-skin" width="320" height="240" controls ></video>
 
-        <br><br>
+<br><br>
+
+        <div id="progress"></div>
 
 <!--<div id="container" style="height: 500px;width: 500px;"></div>-->
