@@ -10,46 +10,68 @@ define(
         // Déclaration du controller BasicController pour le module ExampleApp
         Application.controller('IndexController', function IndexController ($scope, $http) {
 
-            $scope.loadingFile = function(event){
-                console.log("Loading file in progress");
+            $scope.webworker = function(){
+                // Prepare Web Worker
+                var worker = new Worker("js/angularjs/index/encode_file.js");
 
+                worker.onmessage = function(event){
+                    console.log("Receive data from webworker : " + event.data);
+                };
+
+                worker.onerror = function(){
+                    console.log("worker error.");
+                };
+
+                worker.postMessage("toto");
+            };
+
+            $scope.loadingFile = function(event){
                 var size = event.files.length;
                 if(size === 0){
-                    console.log("no file to load");
+                    console.log("No file to load");
                 }
                 else{
-                    var reader = new FileReader();
-                    reader.onload = function(){
-                        try {
-                            var progress = $("#progress").get(0);
-                            progress.textContent = '100%';
-                            console.log("file is loaded");
-                            var dataURL = this.result;
-                            var player = $("#video");
-                            player.get(0).src = "data:video/webm;base64," + window.btoa(dataURL);
-                            player.get(0).load();
-                            player.get(0).play();
-                        }
-                        catch (e){
-                            console.log(e);
-                        }
-                    };
-                    reader.onprogress = updateProgressBar;
-                    reader.onerror = function(error){
-                        console.log("file loading on error");
-                    };
-                    reader.onabort = function(e){
-                        console.log("file loading is aborted");
+                    console.log("Loading file in progress");
+                    // Prepare FileReader
+//                    var reader = new FileReader();
+//                    reader.onload = function(){
+//                        try {
+//                            var progress = $("#progress").get(0);
+//                            progress.textContent = '100%';
+//                            console.log("file is loaded");
+//                            var dataURL = this.result;
+//                            var player = $("#video");
+//                            player.get(0).src = "data:video/webm;base64," + window.btoa(dataURL);
+//                            player.get(0).load();
+//                            player.get(0).play();
+//                        }
+//                        catch (e){
+//                            console.log(e);
+//                        }
+//                    };
+//                    reader.onprogress = updateProgressBar;
+//                    reader.onerror = function(error){
+//                        console.log("file loading on error");
+//                    };
+//                    reader.onabort = function(e){
+//                        console.log("file loading is aborted");
+//                    };
+
+                    // Prepare Web Worker
+                    var worker = new Worker("js/angularjs/index/encode_file.js");
+                    worker.onmessage = function(event){
+                        console.log("Web Worker finish.");
+                        var player = $("#video");
+                        player.get(0).src = "data:video/mp4;base64," + event.data;
+                        player.get(0).load();
+                        player.get(0).play();
                     };
 
-                    var blob = new Blob([
-                            "onmessage = function(e) { " +
-                            //"console.log(\"worker begin\"); " +
-                            "reader.readAsBinaryString(event.files[0]); }"]);
-                    var blobURL = window.URL.createObjectURL(blob);
-                    var worker = new WebSocket(blobURL);
-                    //reader.readAsBinaryString(event.files[0]);
-                    worker.postMessage("");
+                    worker.onerror = function(){
+                        console.log("worker error.");
+                    };
+
+                    worker.postMessage(event.files[0]);
                 }
             };
 
