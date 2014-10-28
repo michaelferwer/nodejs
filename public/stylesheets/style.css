@@ -6,6 +6,11 @@ html, body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.h2{
+
+
+}
+
 .content{
     margin-top: 100px;
     overflow-y:auto;

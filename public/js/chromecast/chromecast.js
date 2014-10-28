@@ -76,7 +76,8 @@ function($) {
         console.log("onRequestSessionSuccess");
         session = e;
 
-        var mediaInfo = new chrome.cast.media.MediaInfo('http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4', 'video/mp4');
+        var mediaInfo = new chrome.cast.media.MediaInfo('http://192.168.0.21/videos/a.mp4', 'video/mp4');
+//        var mediaInfo = new chrome.cast.media.MediaInfo('http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4', 'video/mp4');
 
         var request = new chrome.cast.media.LoadRequest(mediaInfo);
 

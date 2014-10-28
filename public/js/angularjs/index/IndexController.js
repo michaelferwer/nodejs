@@ -10,77 +10,39 @@ define(
         // Déclaration du controller BasicController pour le module ExampleApp
         Application.controller('IndexController', function IndexController ($scope, $http) {
 
-            $scope.webworker = function(){
-                // Prepare Web Worker
-                var worker = new Worker("js/angularjs/index/encode_file.js");
-
-                worker.onmessage = function(event){
-                    console.log("Receive data from webworker : " + event.data);
-                };
-
-                worker.onerror = function(){
-                    console.log("worker error.");
-                };
-
-                worker.postMessage("toto");
-            };
-
+            // Méthode permettant de charger un fichier dans le lecteur video
             $scope.loadingFile = function(event){
                 var size = event.files.length;
+
                 if(size === 0){
                     console.log("No file to load");
                 }
                 else{
                     console.log("Loading file in progress");
-                    // Prepare FileReader
-//                    var reader = new FileReader();
-//                    reader.onload = function(){
-//                        try {
-//                            var progress = $("#progress").get(0);
-//                            progress.textContent = '100%';
-//                            console.log("file is loaded");
-//                            var dataURL = this.result;
-//                            var player = $("#video");
-//                            player.get(0).src = "data:video/webm;base64," + window.btoa(dataURL);
-//                            player.get(0).load();
-//                            player.get(0).play();
-//                        }
-//                        catch (e){
-//                            console.log(e);
-//                        }
-//                    };
-//                    reader.onprogress = updateProgressBar;
-//                    reader.onerror = function(error){
-//                        console.log("file loading on error");
-//                    };
-//                    reader.onabort = function(e){
-//                        console.log("file loading is aborted");
-//                    };
 
-                    // Prepare Web Worker
-                    var worker = new Worker("js/angularjs/index/encode_file.js");
-                    worker.onmessage = function(event){
-                        console.log("Web Worker finish.");
+                    if(false) {
+                        // Prepare Web Worker
+                        var worker = new Worker("js/angularjs/index/encode_file.js");
+                        worker.onmessage = function (event) {
+                            console.log("Web Worker finish.");
+                            var player = $("#video");
+                            player.get(0).src = "data:video/mp4;base64," + event.data;
+                            player.get(0).load();
+                            player.get(0).play();
+                        };
+
+                        worker.onerror = function () {
+                            console.log("worker error.");
+                        };
+                        worker.postMessage(event.files[0]);
+                    }
+                    else{
+                        // create blob url
+                        var vendorURL = window.URL || window.webkitURL;
                         var player = $("#video");
-                        player.get(0).src = "data:video/mp4;base64," + event.data;
+                        player.get(0).src = vendorURL.createObjectURL(event.files[0]);
                         player.get(0).load();
                         player.get(0).play();
-                    };
-
-                    worker.onerror = function(){
-                        console.log("worker error.");
-                    };
-
-                    worker.postMessage(event.files[0]);
-                }
-            };
-
-            var updateProgressBar = function(e){
-                if (e.lengthComputable) {
-                    var percentLoaded = Math.round((e.loaded / e.total) * 100);
-                    if (percentLoaded < 100) {
-                        var progress = $("#progress").get(0);
-                        progress.textContent = percentLoaded + '%';
                     }
                 }
             };

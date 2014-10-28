@@ -8,9 +8,11 @@ var initRoutes = function (app)
     /// routes
     var routes = require('./routes/index');
     var users = require('./routes/users');
+    var movies = require('./routes/movies');
 
     app.use('/', routes);
-    app.use('/users', users);
+    app.use('/', users);
+    app.use('/', movies);
 };
 
 

@@ -2,31 +2,32 @@ onmessage = function(event) {
     console.log("Web Worker begin");
 
     var reader = new FileReaderSync();
-    reader.onload = function(){
-        try {
-            console.log("file is loaded");
-            var dataURL = this.result;
-            postMessage(window.btoa(dataURL));
-        }
-        catch (e){
-            console.log(e);
-        }
-    };
-    reader.onprogress = function(e){
-        if (e.lengthComputable) {
-            var percentLoaded = Math.round((e.loaded / e.total) * 100);
-            if (percentLoaded < 100) {
-                console.log("file loading : "+percentLoaded+"%");
-            }
-        }
-    };
-    reader.onerror = function(error){
-        console.log("file loading on error");
-    };
-    reader.onabort = function(e){
-        console.log("file loading is aborted");
-    };
 
-    var result = reader.readAsBinaryString(event.data);
+    var result = "";
+    var start = 0;
+    var range = 4194304;
+    var stop = start + range;
+    var fileSize = event.data.size;
+
+    // Lis le fichier par portion
+    while(true) {
+        if (stop >= fileSize)
+            stop = fileSize;
+        console.log("read chunk of file : start = " + start + " ; stop = " + stop + " ; range : " + range + " ; file size = " + fileSize);
+        var subfile = reader.readAsBinaryString(event.data.slice(start, stop));
+        result = result + subfile;
+
+        if (stop == fileSize){
+            break;
+        }
+        else{
+            start = stop ;
+            stop = start + range;
+        }
+    }
+
+    // Encode le fichier directement en base64 si le fichier n'est pas trop gros !!
+//    result = reader.readAsDataURL(event.data);
+//    postMessage(result);
     postMessage(btoa(result));
 };

@@ -15,7 +15,7 @@ server.set('port', process.env.PORT || 9000);
 server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'html');
 server.engine('html', expressHbs({
-    defaultLayout: __dirname + '/views/layouts/default.html',
+    defaultLayout: 'default.html',
     partialsDir: __dirname + '/views/partials',
     layoutsDir: __dirname + '/views/layouts'
 }));
@@ -23,7 +23,8 @@ server.engine('html', expressHbs({
 server.use(logger('dev'));
 server.use(bodyParser.json());
 server.use(cookieParser());
-server.use(express.static(path.join(__dirname, 'public')));
+server.use(express.static(__dirname + '/public'));
+
 
 // Init routes
 var routes = require('./routes')(server);

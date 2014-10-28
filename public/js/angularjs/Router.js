@@ -10,8 +10,12 @@ define(
         Application.config(function routeProvider ($routeProvider){
             $routeProvider.
             when('/',{
-                templateUrl: 'js/angularjs/index/index-template.html',
+                templateUrl: '/js/angularjs/index/index-template.html',
                 controller: 'IndexController'
+            }).
+            when('/movies',{
+                templateUrl: '/js/angularjs/movies/movies-template.html',
+                controller: ''
             }).
             otherwise({
                 redirectTo: ''

@@ -3,7 +3,7 @@
  */
 
 require.config({
-    baseUrl: ""
+    baseUrl: "/"
 });
 
 //bootstrap of angular application
