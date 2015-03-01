@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressHbs = require('express3-handlebars');
 var debug = require('debug')('generated-express-server');
-var mongoose = require('mongoose');
 
 var server = express();
 
@@ -64,32 +63,5 @@ server.use(function(err, req, res, next) {
 server.listen(server.get('port'), function() {
     debug('Express server listening on port ' + this.address().port);
 });
-
-/*
-// On se connecte à la base de données
-// N'oubliez pas de lancer ~/mongodb/bin/mongod dans un terminal !
-mongoose.connect('mongodb://localhost/test', function(err) {
-    if (err) { throw err; }
-});
-
-// Création du schéma pour les commentaires
-var videoSchema = new mongoose.Schema({
-    name : String
-});
-
-// Création du Model pour les commentaires
-var videoModel = mongoose.model('video', videoSchema);
-
-// On crée une instance du Model
-var video = new videoModel({ name : 'Atinux' });
-
-// On le sauvegarde dans MongoDB !
-video.save(function (err) {
-    if (err) { throw err; }
-    console.log('Video ajouté avec succès !');
-    // On se déconnecte de MongoDB maintenant
-    mongoose.connection.close();
-});
-*/
 
 module.exports = server;

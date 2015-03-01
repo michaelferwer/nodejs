@@ -2,6 +2,8 @@
  * Created by michael on 09/04/2014.
  */
 
+
+
 require.config({
     baseUrl: "/"
 });
