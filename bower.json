@@ -1,9 +1,6 @@
 {
   "name": "nodejs",
   "dependencies": {
-    "jquery": "latest",
-    "angular": "latest",
-    "bootstrap" : "latest",
     "video-js" : "latest"
   }
 }

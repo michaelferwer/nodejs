@@ -1,21 +1,43 @@
 {
-    "name": "generated-express-app",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
-        "start": "./node_modules/.bin/supervisor server.js"
-    },
-    "dependencies": {
-        "express": "~4.2.0",
-        "express3-handlebars ": "*",
-        "serve-favicon": "*",
-        "morgan": "~1.0.0",
-        "cookie-parser": "~1.0.1",
-        "body-parser": "~1.0.0",
-        "debug": "~0.7.4",
-        "mocha": "*",
-        "chai": "*",
-        "sinon": "*",
-        "supervisor": "*"
-    }
+  "name": "generated-express-app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "./node_modules/.bin/supervisor server.js"
+  },
+  "dependencies": {
+    "angular": "*",
+    "jquery": "*",
+    "bootstrap": "*",
+    "body-parser": "~1.0.0",
+    "bower": "^1.3.12",
+    "chai": "*",
+    "cookie-parser": "~1.0.1",
+    "debug": "~0.7.4",
+    "express": "~4.2.0",
+    "express3-handlebars ": "*",
+    "mocha": "*",
+    "morgan": "~1.0.0",
+    "serve-favicon": "*",
+    "sinon": "*",
+    "supervisor": "*"
+  },
+  "devDependencies": {
+    "browserify": "^9.0.3",
+    "browserify-shim": "^3.8.3",
+    "gulp-clean": "^0.3.1",
+    "gulp-jshint": "^1.9.2",
+    "gulp-minify-css": "^0.5.1",
+    "gulp-uglify": "^1.1.0",
+    "gulp-util": "^3.0.4",
+    "vinyl-source-stream": "^1.0.0",
+    "watchify": "^2.4.0"
+  },
+  "browser": {},
+  "browserify-shim": {},
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  }
 }
