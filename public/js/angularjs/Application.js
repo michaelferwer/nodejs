@@ -4,10 +4,7 @@
 
 'use strict';
 
-define(
-    [],
-    function(){
-        var Application = angular.module('Application',['ngRoute']);
-        return Application;
-    }
-);
+(function(){
+    var Application = angular.module('Application', ['ngRoute']);
+    module.exports = Application;
+})();

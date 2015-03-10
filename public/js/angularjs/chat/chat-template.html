@@ -1,21 +1,17 @@
-<video autoplay="" style="width: 500px;"></video>
+<table>
+    <tr>
+        <td>
+            <video id ="local-video" autoplay="" style="width: 200px;"></video>
+            <br>
+            local video
+        </td>
+        <td>
+            <video id ="remote-video" autoplay="" style="width: 200px;"></video>
+            <br>
+            remote video
+        </td>
+    </tr>
+</table>
 
-<button ng-click="startChat()">start</button>
-
-<!--<script>-->
-    <!--$(document).ready(function(){-->
-    <!--navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;-->
-
-    <!--var constraints = {audio: true, video: true};-->
-
-    <!--function successCallback(stream) {-->
-        <!--var video = document.querySelector("video");-->
-        <!--video.src = window.URL.createObjectURL(stream);-->
-    <!--}-->
-
-    <!--function errorCallback(error) {-->
-        <!--console.log("navigator.getUserMedia error: ", error);-->
-    <!--}-->
-
-    <!--navigator.getUserMedia(constraints, successCallback, errorCallback);});-->
-<!--</script>-->
+<button id='start' ng-click="start()">start</button>
+<button id='call' ng-click="call()">call</button>

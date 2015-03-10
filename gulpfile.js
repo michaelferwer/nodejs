@@ -21,8 +21,7 @@ var build = function(option) {
         option
             .bundle()
             .pipe(source('app.js'))
-            .pipe(gulp.dest('./public/build/'))
-            .pipe(livereload());
+            .pipe(gulp.dest('./public/build/'));
     };
 };
 

@@ -14,9 +14,14 @@
 //    }
 //);
 
-// load angular
+// load angularjs
 var angular = require('angular');
+var angular_route = require('angular-route');
+
 // load jquery
-var $ = jQuery = require('jquery');
+window.$ = window.jQuery = require('jquery');
 // load bootstrap
 require('bootstrap');
+
+window.Application = require('./angularjs/Application');
+require('./angularjs/Router');
