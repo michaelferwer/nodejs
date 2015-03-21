@@ -3,7 +3,7 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var expressHbs = require('express3-handlebars');
+var expressHbs = require('express-handlebars');
 var debug = require('debug')('generated-express-server');
 
 var server = express();
